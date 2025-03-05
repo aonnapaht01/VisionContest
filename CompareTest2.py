@@ -1,3 +1,4 @@
+import pandas as pd
 import tensorflow as tf
 from tensorflow.keras.preprocessing import image
 from tensorflow.keras.applications.vgg16 import VGG16, preprocess_input
@@ -15,7 +16,7 @@ def preprocess_image(image_path):
 def get_image_score(img_path):
     img_array = preprocess_image(img_path)
     preds = model.predict(img_array)
-    return np.max(preds)  
+    return np.max(preds)
 
 def compare_food_images(image1_path, image2_path):
     score1 = get_image_score(image1_path)
@@ -29,8 +30,21 @@ def compare_food_images(image1_path, image2_path):
     elif score2 > score1:
         return "Second"
 
-image1_path = 'Test Images/337434745_2081658938686371_3091238496226170853_n.jpg'  
-image2_path = 'Test Images/338724255_183436517825831_9127192162501769012_n.jpg'  
+df = pd.read_csv('test.csv')  
 
-result = compare_food_images(image1_path, image2_path)
-print(result)
+def update_winner(row):
+    image1_path = row['Image 1']  
+    image2_path = row['Image 2']  
+    
+    result = compare_food_images(image1_path, image2_path)
+    
+    if result == "First":
+        row['Winner'] = 1
+    elif result == "Second":
+        row['Winner'] = 2
+    
+    return row
+
+df = df.apply(update_winner, axis=1)
+
+df.to_csv('test_updated.csv', index=False)
