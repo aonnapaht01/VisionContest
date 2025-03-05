@@ -4,7 +4,7 @@ from tensorflow.keras.preprocessing import image
 from tensorflow.keras.applications.vgg16 import VGG16, preprocess_input
 import numpy as np
 
-model = VGG16(weights='imagenet')
+model = VGG16(weights='imagenet') #VGG16 Model
 
 def preprocess_image(image_path):
     img = image.load_img(image_path, target_size=(224, 224))
@@ -22,15 +22,17 @@ def compare_food_images(image1_path, image2_path):
     score1 = get_image_score(image1_path)
     score2 = get_image_score(image2_path)
     
-    print(f"First_score: {score1}")
-    print(f"Second_score: {score2}")
+    print(f"First score: {score1}")
+    print(f"Second score: {score2}")
     
     if score1 > score2:
+        print("Winner: First")
         return "First"
     elif score2 > score1:
+        print("Winner: Second")
         return "Second"
-
-df = pd.read_csv('test.csv')  
+    
+df = pd.read_csv('test.csv') 
 
 def update_winner(row):
     image1_path = row['Image 1']  
@@ -47,4 +49,6 @@ def update_winner(row):
 
 df = df.apply(update_winner, axis=1)
 
-df.to_csv('test_updated.csv', index=False)
+df.to_csv('test.csv', index=False)
+
+print("CSV Updated 'test.csv'")
