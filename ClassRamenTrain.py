@@ -52,7 +52,7 @@ model.compile(optimizer="adam", loss="binary_crossentropy", metrics=["accuracy"]
 
 # Training Callbacks
 callbacks = [
-    ModelCheckpoint("ramen_classifier.h5", save_best_only=True, monitor="val_loss", mode="min"),
+    ModelCheckpoint("food_classify_Ramen.keras", save_best_only=True, monitor="val_loss", mode="min"),
     ReduceLROnPlateau(monitor="val_loss", factor=0.5, patience=5, verbose=1),
     EarlyStopping(monitor="val_loss", patience=10, restore_best_weights=True)
 ]
