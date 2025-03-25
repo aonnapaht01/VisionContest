@@ -15,7 +15,7 @@ models = {
 
 # Define constants
 folder_path = "Test Images"
-csv_path = "test_6.csv"
+csv_path = "test.csv"
 image_size_class = (128, 128)  # Size for classification
 image_size_pair = (224, 224)  # Size for pair comparison
 class_indicate = {0: "Burger", 1: "Dessert", 2: "Pizza", 3: "Ramen", 4: "Sushi"}
@@ -92,6 +92,6 @@ for _, row in df.iterrows():
 df["Winner"] = predictions
 
 # Save the updated CSV
-df.to_csv("test_6_updated.csv", index=False)
+df.to_csv("test_updated.csv", index=False)
 
 print("\nPredictions saved successfully!")
